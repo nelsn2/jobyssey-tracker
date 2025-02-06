@@ -209,7 +209,7 @@ const Network = () => {
                                 Message
                               </Button>
                               <Button variant="outline" onClick={() => handleConnect(connection.id)}>
-                                <HandShake className="mr-2 h-4 w-4" />
+                                <Handshake className="mr-2 h-4 w-4" />
                                 Connect
                               </Button>
                             </div>
