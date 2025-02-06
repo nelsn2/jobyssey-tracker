@@ -3,14 +3,44 @@ import { ActivityTimeline } from "@/components/dashboard/ActivityTimeline";
 import { ApplicationStats } from "@/components/dashboard/ApplicationStats";
 import { UpcomingInterviews } from "@/components/dashboard/UpcomingInterviews";
 import { Card } from "@/components/ui/card";
-import { Briefcase, Calendar, Star } from "lucide-react";
+import { Briefcase, Calendar, Star, BarChart2 } from "lucide-react";
+import { Link, Outlet, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
+  const location = useLocation();
+  const isAnalytics = location.pathname.includes('/dashboard/analytics');
+
+  if (isAnalytics) {
+    return (
+      <div className="min-h-screen flex">
+        <AppSidebar />
+        <main className="flex-1 p-6">
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-3xl font-bold">Analytics</h1>
+            <Button variant="outline" asChild>
+              <Link to="/dashboard">Back to Dashboard</Link>
+            </Button>
+          </div>
+          <Outlet />
+        </main>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen flex">
       <AppSidebar />
       <main className="flex-1 p-6">
-        <h1 className="text-3xl font-bold mb-8">Dashboard</h1>
+        <div className="flex items-center justify-between mb-8">
+          <h1 className="text-3xl font-bold">Dashboard</h1>
+          <Button asChild>
+            <Link to="/dashboard/analytics">
+              <BarChart2 className="mr-2 h-4 w-4" />
+              View Analytics
+            </Link>
+          </Button>
+        </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
           <Card className="p-6">
