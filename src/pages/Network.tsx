@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import {
   Users,
@@ -16,6 +17,9 @@ import {
   Search,
   Globe,
   Award,
+  Mail,
+  Link2,
+  HandShake,
 } from "lucide-react";
 
 // Mock data for demonstration
@@ -27,6 +31,7 @@ const connections = [
     company: "TechCorp Inc",
     mutualConnections: 12,
     skills: ["React", "TypeScript", "UI/UX"],
+    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=64&h=64&fit=crop&crop=faces",
   },
   {
     id: 2,
@@ -35,6 +40,7 @@ const connections = [
     company: "StartupXYZ",
     mutualConnections: 8,
     skills: ["Leadership", "Agile", "System Design"],
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=64&h=64&fit=crop&crop=faces",
   },
   {
     id: 3,
@@ -43,6 +49,7 @@ const connections = [
     company: "DesignCo",
     mutualConnections: 15,
     skills: ["Figma", "User Research", "Design Systems"],
+    image: "https://images.unsplash.com/photo-1502685104226-1c4b1c1c1c1c?w=64&h=64&fit=crop&crop=faces",
   },
 ];
 
@@ -54,6 +61,8 @@ const events = [
     type: "In-Person",
     location: "San Francisco, CA",
     attendees: 150,
+    description: "Join us for an evening of networking and tech talks.",
+    tags: ["Tech", "Networking", "Career"],
   },
   {
     id: 2,
@@ -62,6 +71,8 @@ const events = [
     type: "Virtual",
     location: "Online",
     attendees: 25,
+    description: "A casual virtual coffee chat to connect with peers.",
+    tags: ["Virtual", "Networking"],
   },
   {
     id: 3,
@@ -70,6 +81,38 @@ const events = [
     type: "Hybrid",
     location: "New York + Online",
     attendees: 500,
+    description: "A conference celebrating women in technology.",
+    tags: ["Women in Tech", "Conference"],
+  },
+];
+
+const recommendedConnections = [
+  {
+    id: 1,
+    name: "Alex Thompson",
+    role: "Product Manager",
+    company: "InnovateTech",
+    commonInterests: ["Product Development", "Agile", "Tech"],
+    mutualConnections: 5,
+    image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=64&h=64&fit=crop&crop=faces",
+  },
+  {
+    id: 2,
+    name: "Jessica Lee",
+    role: "UX Researcher",
+    company: "Creative Solutions",
+    commonInterests: ["User Experience", "Design Thinking"],
+    mutualConnections: 3,
+    image: "https://images.unsplash.com/photo-1502685104226-1c4b1c1c1c1c?w=64&h=64&fit=crop&crop=faces",
+  },
+  {
+    id: 3,
+    name: "David Kim",
+    role: "Software Engineer",
+    company: "Tech Innovations",
+    commonInterests: ["Software Development", "AI"],
+    mutualConnections: 4,
+    image: "https://images.unsplash.com/photo-1502685104226-1c4b1c1c1c1c?w=64&h=64&fit=crop&crop=faces",
   },
 ];
 
@@ -90,33 +133,52 @@ const Network = () => {
     });
   };
 
+  const handleMessageSend = (userId: number) => {
+    toast({
+      title: "Message sent",
+      description: "Your message has been sent successfully.",
+    });
+  };
+
+  const handleShareProfile = () => {
+    toast({
+      title: "Profile link copied",
+      description: "Your profile link has been copied to clipboard.",
+    });
+  };
+
   return (
     <div className="flex h-screen">
       <AppSidebar />
       <main className="flex-1 p-6 overflow-auto">
         <div className="max-w-7xl mx-auto">
           <Tabs defaultValue="connections" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-6">
+            <TabsList className="grid w-full grid-cols-4 mb-6">
               <TabsTrigger value="connections">Connections</TabsTrigger>
               <TabsTrigger value="events">Events</TabsTrigger>
               <TabsTrigger value="companies">Companies</TabsTrigger>
+              <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
             </TabsList>
 
             <TabsContent value="connections">
               <div className="flex flex-col gap-6">
                 <div className="flex justify-between items-center">
-                  <h1 className="text-3xl font-bold">Professional Network</h1>
+                  <div>
+                    <h1 className="text-3xl font-bold">Professional Network</h1>
+                    <p className="text-muted-foreground mt-1">Build and manage your professional relationships</p>
+                  </div>
                   <div className="flex gap-4">
                     <div className="relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                      <Input
-                        placeholder="Search connections..."
-                        className="pl-10 w-[300px]"
-                      />
+                      <Input placeholder="Search connections..." className="pl-10 w-[300px]" />
                     </div>
                     <Button>
                       <UserPlus className="mr-2 h-4 w-4" />
                       Add Connection
+                    </Button>
+                    <Button variant="outline" onClick={handleShareProfile}>
+                      <Link2 className="mr-2 h-4 w-4" />
+                      Share Profile
                     </Button>
                   </div>
                 </div>
@@ -128,9 +190,10 @@ const Network = () => {
                         <CardContent className="p-6">
                           <div className="flex justify-between items-start">
                             <div className="flex gap-4">
-                              <div className="h-12 w-12 rounded-full bg-secondary flex items-center justify-center">
-                                <Users className="h-6 w-6" />
-                              </div>
+                              <Avatar className="h-12 w-12">
+                                <AvatarImage src={connection.image} alt={connection.name} />
+                                <AvatarFallback>{connection.name.charAt(0)}</AvatarFallback>
+                              </Avatar>
                               <div>
                                 <h3 className="text-xl font-semibold">{connection.name}</h3>
                                 <p className="text-muted-foreground">{connection.role}</p>
@@ -141,12 +204,13 @@ const Network = () => {
                               </div>
                             </div>
                             <div className="flex gap-2">
-                              <Button variant="outline" onClick={() => handleConnect(connection.id)}>
-                                <UserPlus className="mr-2 h-4 w-4" />
-                                Connect
+                              <Button variant="outline" onClick={() => handleMessageSend(connection.id)}>
+                                <Mail className="mr-2 h-4 w-4" />
+                                Message
                               </Button>
-                              <Button variant="outline">
-                                <MessageSquare className="h-4 w-4" />
+                              <Button variant="outline" onClick={() => handleConnect(connection.id)}>
+                                <HandShake className="mr-2 h-4 w-4" />
+                                Connect
                               </Button>
                             </div>
                           </div>
@@ -201,6 +265,7 @@ const Network = () => {
                                 <span>{event.attendees} attendees</span>
                               </div>
                             </div>
+                            <p className="text-sm text-muted-foreground mt-2">{event.description}</p>
                           </div>
                           <Button onClick={() => handleEventRSVP(event.id)}>RSVP</Button>
                         </div>
@@ -248,6 +313,56 @@ const Network = () => {
                         </div>
                         <Button className="w-full mt-4" variant="outline">
                           View Profile
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="recommendations">
+              <div className="grid gap-6">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h2 className="text-2xl font-bold">Recommended Connections</h2>
+                    <p className="text-muted-foreground">People you might want to connect with</p>
+                  </div>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {recommendedConnections.map((person) => (
+                    <Card key={person.id} className="hover:shadow-lg transition-shadow">
+                      <CardContent className="p-6">
+                        <div className="flex items-center gap-4 mb-4">
+                          <Avatar className="h-12 w-12">
+                            <AvatarImage src={person.image} alt={person.name} />
+                            <AvatarFallback>{person.name.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <h3 className="font-semibold">{person.name}</h3>
+                            <p className="text-sm text-muted-foreground">{person.role}</p>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <p className="text-sm">
+                            <Building2 className="inline h-4 w-4 mr-1" />
+                            {person.company}
+                          </p>
+                          <p className="text-sm">
+                            <Users className="inline h-4 w-4 mr-1" />
+                            {person.mutualConnections} mutual connections
+                          </p>
+                          <div className="flex flex-wrap gap-2 mt-2">
+                            {person.commonInterests.map((interest) => (
+                              <Badge key={interest} variant="outline">
+                                {interest}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                        <Button className="w-full mt-4" variant="outline">
+                          <UserPlus className="mr-2 h-4 w-4" />
+                          Connect
                         </Button>
                       </CardContent>
                     </Card>
