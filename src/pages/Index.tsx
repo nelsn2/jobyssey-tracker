@@ -6,7 +6,7 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="h-screen flex flex-col">
       {/* Hero Section */}
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-12 bg-gradient-to-br from-primary to-accent/90 text-white">
         <div className="max-w-4xl mx-auto text-center animate-fade-up">
