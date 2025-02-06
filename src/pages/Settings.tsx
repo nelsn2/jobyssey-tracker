@@ -6,10 +6,10 @@ import { Separator } from "@/components/ui/separator";
 
 const Settings = () => {
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen w-full">
       <AppSidebar />
-      <main className="flex-1 overflow-y-auto">
-        <div className="container max-w-4xl py-6">
+      <main className="flex-1 overflow-y-auto p-6">
+        <div className="max-w-[1400px] mx-auto">
           <div className="space-y-6">
             <div>
               <h2 className="text-2xl font-bold tracking-tight">Settings</h2>
