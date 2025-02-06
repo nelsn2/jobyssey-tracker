@@ -59,7 +59,7 @@ export function CareerPathAdvisor() {
 
     toast({
       title: "Recommendations Generated!",
-      description: "Based on your profile, we've found some great career matches.",
+      description: `Found ${filteredRecommendations.length} career matches based on your preferences.`,
     });
   };
 
