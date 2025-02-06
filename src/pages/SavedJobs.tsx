@@ -5,6 +5,7 @@ import { Table, TableHeader, TableBody, TableRow, TableHead, TableCell } from "@
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { AddJobDialog } from "@/components/jobs/AddJobDialog";
 import { 
   Bookmark, Building2, Calendar, MapPin, Star, 
   Search, Trash2, ExternalLink, Filter
@@ -61,6 +62,10 @@ const SavedJobs = () => {
     setSavedJobs(filtered);
   };
 
+  const handleAddJob = (newJob: any) => {
+    setSavedJobs([newJob, ...savedJobs]);
+  };
+
   const handleRemoveJob = (jobId: number) => {
     setSavedJobs(savedJobs.filter((job) => job.id !== jobId));
     toast({
@@ -113,6 +118,7 @@ const SavedJobs = () => {
                   onChange={(e) => handleSearch(e.target.value)}
                 />
               </div>
+              <AddJobDialog onAddJob={handleAddJob} />
               <Button variant="outline">
                 <Filter className="mr-2 h-4 w-4" />
                 Filter

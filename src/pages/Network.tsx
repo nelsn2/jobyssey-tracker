@@ -3,26 +3,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import {
-  Users,
-  UserPlus,
-  MessageSquare,
-  Calendar,
-  Building2,
-  Briefcase,
-  Search,
-  Globe,
-  Award,
-  Mail,
-  Link2,
-  Handshake,
+  Users, UserPlus, MessageSquare, Calendar,
+  Building2, Briefcase, Search, Globe, Award,
+  Mail, Link2, Handshake
 } from "lucide-react";
 
-// Mock data for demonstration
 const connections = [
   {
     id: 1,
@@ -152,225 +141,158 @@ const Network = () => {
       <AppSidebar />
       <main className="flex-1 p-6 overflow-auto">
         <div className="max-w-7xl mx-auto">
-          <Tabs defaultValue="connections" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-6">
-              <TabsTrigger value="connections">Connections</TabsTrigger>
-              <TabsTrigger value="events">Events</TabsTrigger>
-              <TabsTrigger value="companies">Companies</TabsTrigger>
-              <TabsTrigger value="recommendations">Recommendations</TabsTrigger>
-            </TabsList>
+          <div className="flex justify-between items-center mb-6">
+            <div>
+              <h1 className="text-3xl font-bold">Professional Network</h1>
+              <p className="text-muted-foreground mt-1">Build and manage your professional relationships</p>
+            </div>
+            <div className="flex gap-4">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+                <Input placeholder="Search network..." className="pl-10 w-[300px]" />
+              </div>
+              <Button>
+                <UserPlus className="mr-2 h-4 w-4" />
+                Add Connection
+              </Button>
+            </div>
+          </div>
 
-            <TabsContent value="connections">
-              <div className="flex flex-col gap-6">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h1 className="text-3xl font-bold">Professional Network</h1>
-                    <p className="text-muted-foreground mt-1">Build and manage your professional relationships</p>
-                  </div>
-                  <div className="flex gap-4">
-                    <div className="relative">
-                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                      <Input placeholder="Search connections..." className="pl-10 w-[300px]" />
-                    </div>
-                    <Button>
-                      <UserPlus className="mr-2 h-4 w-4" />
-                      Add Connection
-                    </Button>
-                    <Button variant="outline" onClick={handleShareProfile}>
-                      <Link2 className="mr-2 h-4 w-4" />
-                      Share Profile
-                    </Button>
-                  </div>
-                </div>
-
-                <ScrollArea className="h-[calc(100vh-250px)]">
-                  <div className="grid gap-4">
-                    {connections.map((connection) => (
-                      <Card key={connection.id} className="hover:shadow-lg transition-shadow">
-                        <CardContent className="p-6">
-                          <div className="flex justify-between items-start">
-                            <div className="flex gap-4">
-                              <Avatar className="h-12 w-12">
-                                <AvatarImage src={connection.image} alt={connection.name} />
-                                <AvatarFallback>{connection.name.charAt(0)}</AvatarFallback>
-                              </Avatar>
-                              <div>
-                                <h3 className="text-xl font-semibold">{connection.name}</h3>
-                                <p className="text-muted-foreground">{connection.role}</p>
-                                <div className="flex items-center gap-2 mt-1">
-                                  <Building2 className="h-4 w-4" />
-                                  <span>{connection.company}</span>
+          <div className="grid grid-cols-3 gap-6">
+            {/* Main Connections Feed */}
+            <div className="col-span-2 space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Your Connections</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-[600px] pr-4">
+                    <div className="space-y-4">
+                      {connections.map((connection) => (
+                        <Card key={connection.id} className="hover:shadow-lg transition-shadow">
+                          <CardContent className="p-4">
+                            <div className="flex justify-between items-start">
+                              <div className="flex gap-4">
+                                <Avatar className="h-12 w-12">
+                                  <AvatarImage src={connection.image} alt={connection.name} />
+                                  <AvatarFallback>{connection.name.charAt(0)}</AvatarFallback>
+                                </Avatar>
+                                <div>
+                                  <h3 className="font-semibold">{connection.name}</h3>
+                                  <p className="text-sm text-muted-foreground">{connection.role}</p>
+                                  <p className="text-sm text-muted-foreground">
+                                    <Building2 className="inline h-4 w-4 mr-1" />
+                                    {connection.company}
+                                  </p>
                                 </div>
                               </div>
+                              <div className="flex gap-2">
+                                <Button variant="outline" size="sm">
+                                  <Mail className="h-4 w-4" />
+                                </Button>
+                                <Button variant="outline" size="sm">
+                                  <Handshake className="h-4 w-4" />
+                                </Button>
+                              </div>
                             </div>
-                            <div className="flex gap-2">
-                              <Button variant="outline" onClick={() => handleMessageSend(connection.id)}>
-                                <Mail className="mr-2 h-4 w-4" />
-                                Message
-                              </Button>
-                              <Button variant="outline" onClick={() => handleConnect(connection.id)}>
-                                <Handshake className="mr-2 h-4 w-4" />
-                                Connect
-                              </Button>
-                            </div>
-                          </div>
-                          <div className="mt-4">
-                            <div className="flex gap-2 mb-2">
-                              {connection.skills.map((skill) => (
-                                <Badge key={skill} variant="secondary">
-                                  {skill}
-                                </Badge>
-                              ))}
-                            </div>
-                            <p className="text-sm text-muted-foreground">
-                              <Users className="inline h-4 w-4 mr-1" />
-                              {connection.mutualConnections} mutual connections
-                            </p>
-                          </div>
-                        </CardContent>
-                      </Card>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Sidebar Content */}
+            <div className="space-y-6">
+              {/* Upcoming Events */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex justify-between items-center">
+                    <span>Upcoming Events</span>
+                    <Button variant="outline" size="sm">
+                      <Calendar className="mr-2 h-4 w-4" />
+                      View All
+                    </Button>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {events.slice(0, 3).map((event) => (
+                      <div key={event.id} className="flex items-start gap-4">
+                        <div className="bg-muted p-2 rounded">
+                          <Calendar className="h-4 w-4" />
+                        </div>
+                        <div>
+                          <h4 className="font-medium">{event.title}</h4>
+                          <p className="text-sm text-muted-foreground">{event.date}</p>
+                        </div>
+                      </div>
                     ))}
                   </div>
-                </ScrollArea>
-              </div>
-            </TabsContent>
+                </CardContent>
+              </Card>
 
-            <TabsContent value="events">
-              <div className="grid gap-6">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-2xl font-bold">Upcoming Events</h2>
-                  <Button>
-                    <Calendar className="mr-2 h-4 w-4" />
-                    Create Event
-                  </Button>
-                </div>
-                <div className="grid gap-4">
-                  {events.map((event) => (
-                    <Card key={event.id} className="hover:shadow-lg transition-shadow">
-                      <CardContent className="p-6">
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <h3 className="text-xl font-semibold">{event.title}</h3>
-                            <div className="flex items-center gap-4 mt-2">
-                              <div className="flex items-center gap-1">
-                                <Calendar className="h-4 w-4" />
-                                <span>{event.date}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Globe className="h-4 w-4" />
-                                <span>{event.location}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Users className="h-4 w-4" />
-                                <span>{event.attendees} attendees</span>
-                              </div>
-                            </div>
-                            <p className="text-sm text-muted-foreground mt-2">{event.description}</p>
-                          </div>
-                          <Button onClick={() => handleEventRSVP(event.id)}>RSVP</Button>
+              {/* Recommended Connections */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Recommended</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {recommendedConnections.slice(0, 3).map((person) => (
+                      <div key={person.id} className="flex items-center gap-4">
+                        <Avatar>
+                          <AvatarImage src={person.image} alt={person.name} />
+                          <AvatarFallback>{person.name.charAt(0)}</AvatarFallback>
+                        </Avatar>
+                        <div className="flex-1">
+                          <h4 className="font-medium">{person.name}</h4>
+                          <p className="text-sm text-muted-foreground">{person.role}</p>
                         </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="companies">
-              <div className="grid gap-6">
-                <div className="flex justify-between items-center">
-                  <h2 className="text-2xl font-bold">Featured Companies</h2>
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
-                    <Input
-                      placeholder="Search companies..."
-                      className="pl-10 w-[300px]"
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <Card key={i} className="hover:shadow-lg transition-shadow">
-                      <CardContent className="p-6">
-                        <div className="flex items-center gap-4">
-                          <div className="h-12 w-12 rounded-lg bg-secondary flex items-center justify-center">
-                            <Building2 className="h-6 w-6" />
-                          </div>
-                          <div>
-                            <h3 className="font-semibold">Company {i}</h3>
-                            <p className="text-sm text-muted-foreground">Tech Industry</p>
-                          </div>
-                        </div>
-                        <div className="mt-4 flex items-center gap-4">
-                          <div className="flex items-center gap-1">
-                            <Briefcase className="h-4 w-4" />
-                            <span className="text-sm">{Math.floor(Math.random() * 20)} open roles</span>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Award className="h-4 w-4" />
-                            <span className="text-sm">4.{Math.floor(Math.random() * 9)} rating</span>
-                          </div>
-                        </div>
-                        <Button className="w-full mt-4" variant="outline">
-                          View Profile
+                        <Button variant="outline" size="sm">
+                          <UserPlus className="h-4 w-4" />
                         </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="recommendations">
-              <div className="grid gap-6">
-                <div className="flex justify-between items-center">
-                  <div>
-                    <h2 className="text-2xl font-bold">Recommended Connections</h2>
-                    <p className="text-muted-foreground">People you might want to connect with</p>
+                      </div>
+                    ))}
                   </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {recommendedConnections.map((person) => (
-                    <Card key={person.id} className="hover:shadow-lg transition-shadow">
-                      <CardContent className="p-6">
-                        <div className="flex items-center gap-4 mb-4">
-                          <Avatar className="h-12 w-12">
-                            <AvatarImage src={person.image} alt={person.name} />
-                            <AvatarFallback>{person.name.charAt(0)}</AvatarFallback>
-                          </Avatar>
-                          <div>
-                            <h3 className="font-semibold">{person.name}</h3>
-                            <p className="text-sm text-muted-foreground">{person.role}</p>
-                          </div>
-                        </div>
-                        <div className="space-y-2">
-                          <p className="text-sm">
-                            <Building2 className="inline h-4 w-4 mr-1" />
-                            {person.company}
-                          </p>
-                          <p className="text-sm">
-                            <Users className="inline h-4 w-4 mr-1" />
-                            {person.mutualConnections} mutual connections
-                          </p>
-                          <div className="flex flex-wrap gap-2 mt-2">
-                            {person.commonInterests.map((interest) => (
-                              <Badge key={interest} variant="outline">
-                                {interest}
-                              </Badge>
-                            ))}
-                          </div>
-                        </div>
-                        <Button className="w-full mt-4" variant="outline">
-                          <UserPlus className="mr-2 h-4 w-4" />
-                          Connect
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </TabsContent>
-          </Tabs>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+
+          {/* Companies Section */}
+          <div className="mt-6">
+            <h2 className="text-2xl font-bold mb-4">Featured Companies</h2>
+            <div className="grid grid-cols-3 gap-4">
+              {[1, 2, 3].map((i) => (
+                <Card key={i} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-4">
+                      <div className="h-12 w-12 rounded-lg bg-secondary flex items-center justify-center">
+                        <Building2 className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <h3 className="font-semibold">Company {i}</h3>
+                        <p className="text-sm text-muted-foreground">Tech Industry</p>
+                      </div>
+                    </div>
+                    <div className="mt-4 flex items-center gap-4">
+                      <div className="flex items-center gap-1">
+                        <Briefcase className="h-4 w-4" />
+                        <span className="text-sm">{Math.floor(Math.random() * 20)} open roles</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Award className="h-4 w-4" />
+                        <span className="text-sm">4.{Math.floor(Math.random() * 9)} rating</span>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
         </div>
       </main>
     </div>
