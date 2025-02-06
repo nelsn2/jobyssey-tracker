@@ -6,9 +6,9 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col w-full">
       {/* Hero Section */}
-      <main className="flex-1 flex flex-col items-center justify-center px-6 py-12 bg-gradient-to-br from-primary to-accent/90 text-white">
+      <main className="flex-1 flex flex-col items-center justify-center px-6 py-12 bg-gradient-to-br from-primary to-accent/90 text-white w-full">
         <div className="max-w-4xl mx-auto text-center animate-fade-up">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             Track Your Job Search Journey
