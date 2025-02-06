@@ -1,78 +1,57 @@
-import { Star, Building2, MapPin, Calendar, ExternalLink, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { TableRow, TableCell } from "@/components/ui/table";
-import { JobTableRowProps } from "@/types/jobs";
+import { TableCell, TableRow } from "@/components/ui/table";
+import { JobMatchScore } from "./JobMatchScore";
+import { SavedJob } from "@/types/jobs";
+import { Star, Trash2 } from "lucide-react";
 
-export const JobTableRow = ({ job, onRemove }: JobTableRowProps) => {
-  const getStatusColor = (status: string) => {
-    switch (status.toLowerCase()) {
-      case 'applied':
-        return 'bg-blue-100 text-blue-800';
-      case 'interview':
-        return 'bg-green-100 text-green-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  };
+interface JobTableRowProps {
+  job: SavedJob;
+  onRemove: (id: number) => void;
+}
 
-  const renderStarRating = (rating: number) => {
-    return [...Array(5)].map((_, index) => (
-      <Star
-        key={index}
-        className={`h-4 w-4 ${
-          index < rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
-        }`}
-      />
-    ));
+export function JobTableRow({ job, onRemove }: JobTableRowProps) {
+  // This would typically come from an API, but for demo purposes:
+  const matchData = {
+    overallMatch: 85,
+    skillGaps: [
+      { skill: "React", importance: 5, userLevel: 4, requiredLevel: 5 },
+      { skill: "TypeScript", importance: 4, userLevel: 3, requiredLevel: 4 },
+      { skill: "Node.js", importance: 3, userLevel: 2, requiredLevel: 3 },
+    ],
+    recommendedCourses: [
+      "Advanced React Patterns",
+      "TypeScript Best Practices",
+      "Node.js Performance Optimization",
+    ],
   };
 
   return (
-    <TableRow className="group hover:bg-muted/50">
-      <TableCell className="font-medium">{job.title}</TableCell>
+    <TableRow>
       <TableCell>
-        <div className="flex items-center gap-2">
-          <Building2 className="h-4 w-4 text-muted-foreground" />
-          {job.company}
+        <div className="space-y-1">
+          <div className="font-medium">{job.title}</div>
+          <div className="text-sm text-muted-foreground">{job.company}</div>
         </div>
       </TableCell>
-      <TableCell>
-        <div className="flex items-center gap-2">
-          <MapPin className="h-4 w-4 text-muted-foreground" />
-          {job.location}
-        </div>
-      </TableCell>
+      <TableCell>{job.location}</TableCell>
       <TableCell>{job.salary}</TableCell>
       <TableCell>
-        <div className="flex items-center gap-2">
-          <Calendar className="h-4 w-4 text-muted-foreground" />
-          {job.savedDate}
-        </div>
+        <JobMatchScore {...matchData} />
       </TableCell>
       <TableCell>
-        <Badge className={getStatusColor(job.status)}>
-          {job.status}
-        </Badge>
-      </TableCell>
-      <TableCell>
-        <div className="flex gap-1">
-          {renderStarRating(job.rating)}
-        </div>
-      </TableCell>
-      <TableCell>
-        <div className="flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          <Button variant="ghost" size="icon">
-            <ExternalLink className="h-4 w-4" />
+        <div className="flex space-x-2">
+          <Button variant="outline" size="icon">
+            <Star className="h-4 w-4" />
           </Button>
-          <Button 
-            variant="ghost" 
+          <Button
+            variant="outline"
             size="icon"
             onClick={() => onRemove(job.id)}
           >
-            <Trash2 className="h-4 w-4 text-destructive" />
+            <Trash2 className="h-4 w-4" />
           </Button>
         </div>
       </TableCell>
     </TableRow>
   );
-};
+}

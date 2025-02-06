@@ -18,3 +18,16 @@ export interface JobTableRowProps {
   job: SavedJob;
   onRemove: (id: number) => void;
 }
+
+export interface SkillGap {
+  skill: string;
+  importance: number;
+  userLevel: number;
+  requiredLevel: number;
+}
+
+export interface JobMatch {
+  overallMatch: number;
+  skillGaps: SkillGap[];
+  recommendedCourses: string[];
+}
