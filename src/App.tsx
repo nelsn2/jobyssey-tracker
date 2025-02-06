@@ -11,6 +11,7 @@ import Jobs from "./pages/Jobs";
 import SavedJobs from "./pages/SavedJobs";
 import Settings from "./pages/Settings";
 import Network from "./pages/Network";
+import LearningHub from "./pages/LearningHub";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,6 +31,7 @@ const App = () => (
             <Route path="/jobs" element={<Jobs />} />
             <Route path="/saved" element={<SavedJobs />} />
             <Route path="/network" element={<Network />} />
+            <Route path="/learning" element={<LearningHub />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
