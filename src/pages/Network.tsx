@@ -19,7 +19,7 @@ import {
   Award,
   Mail,
   Link2,
-  HandShake,
+  Handshake,
 } from "lucide-react";
 
 // Mock data for demonstration
