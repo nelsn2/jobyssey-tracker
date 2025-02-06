@@ -8,7 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Home, Briefcase, Star, Settings } from "lucide-react";
+import { Home, Briefcase, Star, Settings, Users } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const items = [
@@ -26,6 +26,11 @@ const items = [
     title: "Saved Jobs",
     icon: Star,
     path: "/saved",
+  },
+  {
+    title: "Network",
+    icon: Users,
+    path: "/network",
   },
   {
     title: "Settings",
