@@ -4,8 +4,12 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Book, Code, Briefcase, Trophy, Timer, Target } from "lucide-react";
 import { CareerPathAdvisor } from "@/components/learning/CareerPathAdvisor";
+import { Outlet, useLocation, Link } from "react-router-dom";
 
 const LearningHub = () => {
+  const location = useLocation();
+  const isCareerAdvisor = location.pathname.includes('career-advisor');
+
   const courses = [
     {
       title: "React Advanced Patterns",
@@ -36,6 +40,17 @@ const LearningHub = () => {
       skills: ["Communication", "Leadership", "Conflict Resolution"]
     },
   ];
+
+  if (isCareerAdvisor) {
+    return (
+      <div className="min-h-screen flex">
+        <AppSidebar />
+        <main className="flex-1">
+          <Outlet />
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex">
@@ -118,93 +133,8 @@ const LearningHub = () => {
                             <Progress value={course.progress} />
                           </div>
                         </div>
-                        <div className="flex gap-2 flex-wrap pl-8">
-                          {course.skills.map((skill, skillIndex) => (
-                            <span
-                              key={skillIndex}
-                              className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary"
-                            >
-                              <Target className="mr-1 h-3 w-3" />
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
                       </div>
                     ))}
-                  </TabsContent>
-                  <TabsContent value="technical" className="space-y-4">
-                    {courses
-                      .filter((course) => course.category === "Technical")
-                      .map((course, index) => (
-                        <div key={index} className="space-y-4">
-                          <div className="flex items-center space-x-4">
-                            <Briefcase className="h-4 w-4 text-muted-foreground" />
-                            <div className="flex-1 space-y-1">
-                              <p className="text-sm font-medium leading-none">
-                                {course.title}
-                              </p>
-                              <div className="flex items-center text-sm text-muted-foreground gap-4">
-                                <span>{course.category}</span>
-                                <span className="flex items-center gap-1">
-                                  <Timer className="h-3 w-3" />
-                                  {course.duration}
-                                </span>
-                              </div>
-                            </div>
-                            <div className="w-[200px]">
-                              <Progress value={course.progress} />
-                            </div>
-                          </div>
-                          <div className="flex gap-2 flex-wrap pl-8">
-                            {course.skills.map((skill, skillIndex) => (
-                              <span
-                                key={skillIndex}
-                                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary"
-                              >
-                                <Target className="mr-1 h-3 w-3" />
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                  </TabsContent>
-                  <TabsContent value="interview" className="space-y-4">
-                    {courses
-                      .filter((course) => course.category === "Interview")
-                      .map((course, index) => (
-                        <div key={index} className="space-y-4">
-                          <div className="flex items-center space-x-4">
-                            <Briefcase className="h-4 w-4 text-muted-foreground" />
-                            <div className="flex-1 space-y-1">
-                              <p className="text-sm font-medium leading-none">
-                                {course.title}
-                              </p>
-                              <div className="flex items-center text-sm text-muted-foreground gap-4">
-                                <span>{course.category}</span>
-                                <span className="flex items-center gap-1">
-                                  <Timer className="h-3 w-3" />
-                                  {course.duration}
-                                </span>
-                              </div>
-                            </div>
-                            <div className="w-[200px]">
-                              <Progress value={course.progress} />
-                            </div>
-                          </div>
-                          <div className="flex gap-2 flex-wrap pl-8">
-                            {course.skills.map((skill, skillIndex) => (
-                              <span
-                                key={skillIndex}
-                                className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary"
-                              >
-                                <Target className="mr-1 h-3 w-3" />
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
                   </TabsContent>
                 </Tabs>
               </CardContent>
@@ -212,7 +142,19 @@ const LearningHub = () => {
           </div>
 
           <div className="lg:col-span-1">
-            <CareerPathAdvisor />
+            <Link to="career-advisor" className="block">
+              <Card className="hover:bg-accent/5 transition-colors">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <GraduationCap className="h-5 w-5" />
+                    Career Path Advisor
+                  </CardTitle>
+                  <CardDescription>
+                    Get personalized career recommendations based on your profile
+                  </CardDescription>
+                </CardHeader>
+              </Card>
+            </Link>
           </div>
         </div>
       </main>

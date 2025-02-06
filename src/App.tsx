@@ -28,12 +28,13 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="analytics" element={<Analytics />} />
-              <Route path="career-advisor" element={<CareerAdvisor />} />
             </Route>
             <Route path="/jobs" element={<Jobs />} />
             <Route path="/saved" element={<SavedJobs />} />
             <Route path="/network" element={<Network />} />
-            <Route path="/learning" element={<LearningHub />} />
+            <Route path="/learning" element={<LearningHub />}>
+              <Route path="career-advisor" element={<CareerAdvisor />} />
+            </Route>
             <Route path="/settings" element={<Settings />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

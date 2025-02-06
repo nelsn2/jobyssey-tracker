@@ -32,42 +32,44 @@ export function CareerPathAdvisor() {
   };
 
   return (
-    <Card className="w-full animate-fade-up">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <GraduationCap className="h-5 w-5" />
-          Career Path Advisor
-        </CardTitle>
-        <CardDescription>
-          Discover specialized career paths based on your background
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        <CareerAdvisorForm
-          field={field}
-          degree={degree}
-          onFieldChange={setField}
-          onDegreeChange={setDegree}
-          onSubmit={generateRecommendations}
-        />
+    <div className="w-full max-w-none p-4">
+      <Card className="w-full animate-fade-up">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <GraduationCap className="h-5 w-5" />
+            Career Path Advisor
+          </CardTitle>
+          <CardDescription>
+            Discover specialized career paths based on your background
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <CareerAdvisorForm
+            field={field}
+            degree={degree}
+            onFieldChange={setField}
+            onDegreeChange={setDegree}
+            onSubmit={generateRecommendations}
+          />
 
-        {recommendations.length > 0 && (
-          <div className="mt-8 space-y-6">
-            <h4 className="text-lg font-medium flex items-center gap-2">
-              <Target className="h-5 w-5" />
-              Recommended Career Paths
-            </h4>
-            <div className="grid gap-4">
-              {recommendations.map((recommendation, index) => (
-                <CareerRecommendationCard
-                  key={index}
-                  recommendation={recommendation}
-                />
-              ))}
+          {recommendations.length > 0 && (
+            <div className="mt-8 space-y-6">
+              <h4 className="text-lg font-medium flex items-center gap-2">
+                <Target className="h-5 w-5" />
+                Recommended Career Paths
+              </h4>
+              <div className="grid gap-4">
+                {recommendations.map((recommendation, index) => (
+                  <CareerRecommendationCard
+                    key={index}
+                    recommendation={recommendation}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-      </CardContent>
-    </Card>
+          )}
+        </CardContent>
+      </Card>
+    </div>
   );
 }
