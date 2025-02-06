@@ -3,21 +3,24 @@ import { ActivityTimeline } from "@/components/dashboard/ActivityTimeline";
 import { ApplicationStats } from "@/components/dashboard/ApplicationStats";
 import { UpcomingInterviews } from "@/components/dashboard/UpcomingInterviews";
 import { Card } from "@/components/ui/card";
-import { Briefcase, Calendar, Star, BarChart2 } from "lucide-react";
+import { Briefcase, Calendar, Star, BarChart2, Sparkles } from "lucide-react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
   const location = useLocation();
   const isAnalytics = location.pathname.includes('/dashboard/analytics');
+  const isCareerAdvisor = location.pathname.includes('/dashboard/career-advisor');
 
-  if (isAnalytics) {
+  if (isAnalytics || isCareerAdvisor) {
     return (
       <div className="min-h-screen flex">
         <AppSidebar />
         <main className="flex-1 p-6">
           <div className="flex items-center justify-between mb-8">
-            <h1 className="text-3xl font-bold">Analytics</h1>
+            <h1 className="text-3xl font-bold">
+              {isAnalytics ? "Analytics" : "Career Advisor"}
+            </h1>
             <Button variant="outline" asChild>
               <Link to="/dashboard">Back to Dashboard</Link>
             </Button>
@@ -34,12 +37,20 @@ const Dashboard = () => {
       <main className="flex-1 p-6">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold">Dashboard</h1>
-          <Button asChild>
-            <Link to="/dashboard/analytics">
-              <BarChart2 className="mr-2 h-4 w-4" />
-              View Analytics
-            </Link>
-          </Button>
+          <div className="flex gap-4">
+            <Button asChild>
+              <Link to="/dashboard/career-advisor">
+                <Sparkles className="mr-2 h-4 w-4" />
+                Career Advisor
+              </Link>
+            </Button>
+            <Button asChild>
+              <Link to="/dashboard/analytics">
+                <BarChart2 className="mr-2 h-4 w-4" />
+                View Analytics
+              </Link>
+            </Button>
+          </div>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">

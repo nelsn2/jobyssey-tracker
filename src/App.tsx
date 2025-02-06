@@ -13,6 +13,7 @@ import Settings from "./pages/Settings";
 import Network from "./pages/Network";
 import LearningHub from "./pages/LearningHub";
 import NotFound from "./pages/NotFound";
+import CareerAdvisor from "./pages/CareerAdvisor";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/dashboard" element={<Dashboard />}>
               <Route path="analytics" element={<Analytics />} />
+              <Route path="career-advisor" element={<CareerAdvisor />} />
             </Route>
             <Route path="/jobs" element={<Jobs />} />
             <Route path="/saved" element={<SavedJobs />} />
