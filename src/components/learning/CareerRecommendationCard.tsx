@@ -1,4 +1,4 @@
-import { Briefcase, DollarSign, Star, Target } from "lucide-react";
+import { Briefcase, DollarSign, Star, MapPin, Activity } from "lucide-react";
 import { CareerRecommendation } from "@/utils/careerRecommendations";
 
 interface CareerRecommendationCardProps {
@@ -23,9 +23,19 @@ export function CareerRecommendationCard({ recommendation }: CareerRecommendatio
           {recommendation.matchScore}% Match
         </div>
       </div>
-      <div className="flex items-center gap-2 text-sm text-muted-foreground mt-3">
-        <DollarSign className="h-4 w-4" />
-        {recommendation.salaryRange}
+      <div className="flex flex-col gap-2 mt-3">
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <DollarSign className="h-4 w-4" />
+          {recommendation.salaryRange}
+        </div>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <MapPin className="h-4 w-4" />
+          {recommendation.workLocation}
+        </div>
+        <div className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Activity className="h-4 w-4" />
+          {recommendation.stressLevel} Stress Level
+        </div>
       </div>
       <div className="flex flex-wrap gap-2 mt-3">
         {recommendation.skills.map((skill, skillIndex) => (
