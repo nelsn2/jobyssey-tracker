@@ -14,8 +14,8 @@ export function ApplicationStats() {
     <Card className="p-6">
       <h2 className="text-lg font-semibold mb-4">Application Pipeline</h2>
       <div className="h-[300px] w-full">
-        <ResponsiveContainer>
-          <BarChart data={data}>
+        <ResponsiveContainer width="100%" height="100%">
+          <BarChart data={data} margin={{ top: 20, right: 20, left: 20, bottom: 20 }}>
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
