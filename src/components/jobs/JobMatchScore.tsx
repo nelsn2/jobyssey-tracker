@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tooltip } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Info } from "lucide-react";
 
 interface SkillGap {
@@ -33,9 +33,16 @@ export function JobMatchScore({ overallMatch, skillGaps, recommendedCourses }: J
         <div>
           <div className="flex items-center justify-between mb-2">
             <span className="text-sm font-medium">Overall Match</span>
-            <Tooltip content="Based on skills, experience, and preferences">
-              <Info className="h-4 w-4 text-muted-foreground" />
-            </Tooltip>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <Info className="h-4 w-4 text-muted-foreground" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  Based on skills, experience, and preferences
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           <Progress value={overallMatch} className="h-2" />
         </div>
