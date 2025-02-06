@@ -1,8 +1,8 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { AppSidebar } from "@/components/AppSidebar";
-import { Book, Code, Briefcase, Trophy, Timer, Target } from "lucide-react";
+import { Book, Code, Briefcase, Trophy, Timer, Target, GraduationCap } from "lucide-react";
 import { CareerPathAdvisor } from "@/components/learning/CareerPathAdvisor";
 import { Outlet, useLocation, Link } from "react-router-dom";
 
