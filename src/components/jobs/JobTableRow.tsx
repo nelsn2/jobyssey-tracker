@@ -2,7 +2,13 @@ import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
 import { JobMatchScore } from "./JobMatchScore";
 import { SavedJob } from "@/types/jobs";
-import { Star, Trash2 } from "lucide-react";
+import { Star, Trash2, BarChart2 } from "lucide-react";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Badge } from "@/components/ui/badge";
 
 interface JobTableRowProps {
   job: SavedJob;
@@ -33,10 +39,25 @@ export function JobTableRow({ job, onRemove }: JobTableRowProps) {
           <div className="text-sm text-muted-foreground">{job.company}</div>
         </div>
       </TableCell>
+      <TableCell>{job.company}</TableCell>
       <TableCell>{job.location}</TableCell>
       <TableCell>{job.salary}</TableCell>
+      <TableCell>{job.savedDate}</TableCell>
       <TableCell>
-        <JobMatchScore {...matchData} />
+        <Badge variant="secondary">{job.status}</Badge>
+      </TableCell>
+      <TableCell>
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="outline" size="sm" className="w-[110px]">
+              <BarChart2 className="h-4 w-4 mr-2" />
+              {matchData.overallMatch}% Match
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[400px]" align="end">
+            <JobMatchScore {...matchData} />
+          </PopoverContent>
+        </Popover>
       </TableCell>
       <TableCell>
         <div className="flex space-x-2">

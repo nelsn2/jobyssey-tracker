@@ -71,10 +71,10 @@ const SavedJobs = () => {
   };
 
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen overflow-hidden">
       <AppSidebar />
-      <main className="flex-1 p-6 overflow-auto">
-        <div className="max-w-7xl mx-auto">
+      <main className="flex-1 overflow-auto">
+        <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <div>
               <h1 className="text-3xl font-bold">Saved Jobs</h1>
