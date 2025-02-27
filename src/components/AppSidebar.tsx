@@ -1,3 +1,4 @@
+
 import {
   Sidebar,
   SidebarContent,
@@ -8,7 +9,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Home, Briefcase, Star, Settings, Users, BookOpen } from "lucide-react";
+import { Home, Briefcase, Star, Settings, Users, BookOpen, UserRound } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 const items = [
@@ -36,6 +37,11 @@ const items = [
     title: "Learning Hub",
     icon: BookOpen,
     path: "/learning",
+  },
+  {
+    title: "Profile",
+    icon: UserRound,
+    path: "/profile",
   },
   {
     title: "Settings",

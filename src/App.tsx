@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -14,6 +15,7 @@ import Network from "./pages/Network";
 import LearningHub from "./pages/LearningHub";
 import NotFound from "./pages/NotFound";
 import CareerAdvisor from "./pages/CareerAdvisor";
+import Profile from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +38,7 @@ const App = () => (
               <Route path="career-advisor" element={<CareerAdvisor />} />
             </Route>
             <Route path="/settings" element={<Settings />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </SidebarProvider>
